@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* AI Journalism SaaS Design System - Dark Mode with Green Gradients */
+/* AI Journalism SaaS Design System - Dark Mode with Purple Gradients */
 
 @layer base {
   :root {
@@ -16,38 +16,38 @@
     --popover: 220 20% 10%;
     --popover-foreground: 120 15% 95%;
 
-    /* Brand green primary colors */
-    --primary: 150 80% 40%;
+    /* Brand purple primary colors */
+    --primary: 270 80% 60%;
     --primary-foreground: 220 20% 8%;
-    --primary-glow: 150 80% 50%;
-    --primary-dark: 150 60% 25%;
+    --primary-glow: 280 90% 70%;
+    --primary-dark: 260 70% 40%;
 
     --secondary: 220 15% 15%;
-    --secondary-foreground: 120 15% 90%;
+    --secondary-foreground: 270 15% 90%;
 
     --muted: 220 15% 12%;
-    --muted-foreground: 120 10% 60%;
+    --muted-foreground: 270 10% 60%;
 
-    --accent: 150 60% 20%;
-    --accent-foreground: 120 15% 95%;
+    --accent: 270 60% 25%;
+    --accent-foreground: 270 15% 95%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 220 15% 20%;
     --input: 220 15% 15%;
-    --ring: 150 80% 40%;
+    --ring: 270 80% 60%;
 
     /* Gradients for futuristic design */
-    --gradient-primary: linear-gradient(135deg, hsl(150 80% 40%), hsl(150 60% 25%));
-    --gradient-hero: linear-gradient(135deg, hsl(220 20% 8%) 0%, hsl(150 40% 10%) 50%, hsl(220 20% 8%) 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(270 80% 60%), hsl(260 70% 40%));
+    --gradient-hero: linear-gradient(135deg, hsl(220 20% 8%) 0%, hsl(270 40% 10%) 50%, hsl(220 20% 8%) 100%);
     --gradient-card: linear-gradient(145deg, hsl(220 20% 10%), hsl(220 15% 12%));
-    --gradient-accent: linear-gradient(90deg, hsl(150 80% 40%), hsl(170 70% 45%));
+    --gradient-accent: linear-gradient(90deg, hsl(270 80% 60%), hsl(290 70% 65%));
     
-    /* Shadows with green glow */
-    --shadow-glow: 0 0 30px hsl(150 80% 40% / 0.3);
+    /* Shadows with purple glow */
+    --shadow-glow: 0 0 30px hsl(270 80% 60% / 0.3);
     --shadow-card: 0 8px 32px hsl(220 20% 5% / 0.5);
-    --shadow-elegant: 0 10px 40px hsl(150 80% 40% / 0.15);
+    --shadow-elegant: 0 10px 40px hsl(270 80% 60% / 0.15);
 
     /* Animation variables */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -125,7 +125,7 @@
   /* Custom animations */
   @keyframes glow {
     0% { box-shadow: var(--shadow-glow); }
-    100% { box-shadow: 0 0 40px hsl(150 80% 40% / 0.5); }
+    100% { box-shadow: 0 0 40px hsl(270 80% 60% / 0.5); }
   }
 
   @keyframes float {

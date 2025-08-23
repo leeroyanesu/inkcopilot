@@ -90,10 +90,14 @@ const About = () => {
             maintains your unique voice. We're not just a tool—we're your content creation partner.
           </p>
           
-          <div className="grid md:grid-cols-3 gap-8 mt-12">
+          <div className="grid md:grid-cols-4 gap-8 mt-12">
             <div className="text-center">
               <div className="text-4xl font-bold text-gradient mb-2">10x</div>
               <p className="text-muted-foreground">Faster content production</p>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-gradient mb-2">50+</div>
+              <p className="text-muted-foreground">Custom posts per day</p>
             </div>
             <div className="text-center">
               <div className="text-4xl font-bold text-gradient mb-2">24/7</div>

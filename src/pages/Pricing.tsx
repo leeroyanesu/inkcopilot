@@ -9,7 +9,8 @@ const plans = [
     description: "Perfect for individual creators getting started",
     features: [
       "25 articles per month",
-      "5 publishing jobs per day", 
+      "5 publishing jobs per day",
+      "3 custom posts per day",
       "2 active automation jobs",
       "GPT-4 AI model",
       "Basic WordPress integration",
@@ -26,6 +27,7 @@ const plans = [
     features: [
       "100 articles per month",
       "20 publishing jobs per day",
+      "15 custom posts per day",
       "10 active automation jobs", 
       "GPT-4 + Claude AI models",
       "Real-time news integration",
@@ -41,6 +43,7 @@ const plans = [
 const comparisonFeatures = [
   { feature: "Articles per month", starter: "25", pro: "100" },
   { feature: "Publishing jobs per day", starter: "5", pro: "20" },
+  { feature: "Custom posts per day", starter: "3", pro: "15" },
   { feature: "Active automation jobs", starter: "2", pro: "10" },
   { feature: "AI Models", starter: "GPT-4", pro: "GPT-4 + Claude" },
   { feature: "News Integration", starter: "❌", pro: "✅" },

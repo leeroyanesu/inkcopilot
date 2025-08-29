@@ -1,0 +1,58 @@
+name: Deploy Frontend to Namecheap via RSYNC
+
+on:
+  push:
+    branches:
+      - main  # Your production branch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code 📂
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js 18.x 🟢
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: 'npm'
+
+      - name: Install dependencies 📦
+        run: npm ci
+
+      - name: Build React app 🏗️
+        run: npm run build
+        env:
+          CI: false  # This prevents the build from treating warnings as errors
+          
+      - name: Install rsync 🛰️
+        run: sudo apt-get install -y rsync sshpass
+          
+      - name: Create .htaccess file for SPA routing 📄
+        run: |
+          echo "Options -MultiViews
+          RewriteEngine On
+          RewriteCond %{REQUEST_FILENAME} !-f
+          RewriteRule ^ index.html [QSA,L]" > dist/.htaccess
+
+      - name: Deploy with rsync and password 🚀
+        env:
+          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+        run: |
+          # Disable strict host key checking for this deployment
+          mkdir -p ~/.ssh
+          echo "StrictHostKeyChecking no" > ~/.ssh/config
+          
+          # Deploy using rsync with password authentication
+          sshpass -p "$SSH_PASSWORD" rsync -avz --delete \
+            -e "ssh -p 21098" \
+            ./dist/ \
+            ironobty@192.64.117.206:~/inkcopilot.com/
+            
+      - name: Verify deployment 🔍
+        env:
+          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+        run: |
+          sshpass -p "$SSH_PASSWORD" ssh -p 21098 ironobty@192.64.117.206 'cd ~/inkcopilot.com && ls -la && echo "Frontend deployment completed successfully!"'

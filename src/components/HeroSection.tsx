@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Zap } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   const scrollToFeatures = () => {
@@ -20,70 +21,72 @@ const HeroSection = () => {
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary/5 rounded-full blur-2xl animate-pulse" />
       
       {/* Content */}
-      <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 text-center">
         {/* Pre-headline */}
-        <div className="flex items-center justify-center gap-2 mb-8 animate-fade-in">
-          <Zap className="h-5 w-5 text-primary animate-pulse" />
-          <span className="text-primary font-medium tracking-wide uppercase text-sm">
+        <div className="flex items-center justify-center gap-1.5 sm:gap-2 mb-6 sm:mb-8 animate-fade-in">
+          <Zap className="h-4 w-4 sm:h-5 sm:w-5 text-primary animate-pulse" />
+          <span className="text-primary font-medium tracking-wide uppercase text-xs sm:text-sm">
             Grow on Your Own Terms
           </span>
         </div>
         
         {/* Main headline */}
-        <h1 className="text-6xl md:text-8xl font-bold mb-8 leading-tight animate-fade-in" style={{ animationDelay: '0.2s' }}>
+        <h1 className="text-4xl sm:text-6xl lg:text-8xl font-bold mb-6 sm:mb-8 leading-tight animate-fade-in" style={{ animationDelay: '0.2s' }}>
           Automated Writing for{" "}
           <span className="text-gradient animate-pulse">Busy Creators</span>
         </h1>
         
         {/* Subheadline */}
-        <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-4xl mx-auto leading-relaxed animate-fade-in" style={{ animationDelay: '0.4s' }}>
+        <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground mb-8 sm:mb-12 max-w-4xl mx-auto leading-relaxed animate-fade-in" style={{ animationDelay: '0.4s' }}>
           Remove friction from content creation and publishing with AI-powered automation that works while you focus on growing your audience.
         </p>
         
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-fade-in" style={{ animationDelay: '0.6s' }}>
+        <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center animate-fade-in" style={{ animationDelay: '0.6s' }}>
           <Button 
             variant="hero" 
             size="lg"
-            onClick={scrollToFeatures}
-            className="text-lg px-8 py-3 h-14"
+            className="w-full sm:w-auto text-base sm:text-lg px-6 sm:px-8 h-12 sm:h-14"
+            asChild
           >
-            Get Started
-            <ArrowRight className="ml-2 h-5 w-5" />
+            <Link to="/register">
+              Get Started
+              <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+            </Link>
           </Button>
           <Button 
             variant="outline" 
             size="lg"
             onClick={scrollToFeatures}
-            className="text-lg px-8 py-3 h-14"
+            className="w-full sm:w-auto text-base sm:text-lg px-6 sm:px-8 h-12 sm:h-14"
           >
             View Features
           </Button>
         </div>
         
         {/* Trust indicators */}
-        <div className="mt-20 animate-fade-in" style={{ animationDelay: '0.8s' }}>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-8 text-muted-foreground text-sm">
+        <div className="mt-12 sm:mt-20 animate-fade-in" style={{ animationDelay: '0.8s' }}>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-muted-foreground text-xs sm:text-sm">
             <div className="flex items-center gap-2 hover-scale">
-              <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
+              <div className="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-primary rounded-full animate-pulse" />
               <span>No setup required</span>
             </div>
             <div className="flex items-center gap-2 hover-scale">
-              <div className="w-2 h-2 bg-primary rounded-full animate-pulse" style={{ animationDelay: '0.5s' }} />
+              <div className="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-primary rounded-full animate-pulse" style={{ animationDelay: '0.5s' }} />
               <span>Cancel anytime</span>
             </div>
             <div className="flex items-center gap-2 hover-scale">
-              <div className="w-2 h-2 bg-primary rounded-full animate-pulse" style={{ animationDelay: '1s' }} />
+              <div className="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-primary rounded-full animate-pulse" style={{ animationDelay: '1s' }} />
               <span>Start in minutes</span>
             </div>
           </div>
           
           {/* Company logos */}
-          <div className="mt-12 pt-8 border-t border-border/30">
-            <p className="text-muted-foreground text-sm mb-6">Trusted by content creators worldwide</p>
-            <div className="flex justify-center items-center gap-12 opacity-40">
+          <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-border/30">
+            <p className="text-muted-foreground text-xs sm:text-sm mb-4 sm:mb-6">Trusted by content creators worldwide</p>
+            <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-12 opacity-40">
               {['TechCrunch', 'Medium', 'Substack', 'WordPress', 'Ghost'].map((logo, index) => (
-                <div key={index} className="text-muted-foreground font-medium text-lg hover-scale">
+                <div key={index} className="text-muted-foreground font-medium text-base sm:text-lg hover-scale">
                   {logo}
                 </div>
               ))}

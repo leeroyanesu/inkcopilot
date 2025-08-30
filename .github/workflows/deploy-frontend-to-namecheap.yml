@@ -39,28 +39,9 @@ jobs:
       - name: Deploy with rsync and password 🚀
         env:
           SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
-        run: |
-          # Disable strict host key checking for this deployment
-          mkdir -p ~/.ssh
-          echo "StrictHostKeyChecking no" >> ~/.ssh/config
-          echo "UserKnownHostsFile=/dev/null" >> ~/.ssh/config
-          
-          # Deploy using rsync with explicit password authentication
-          export SSHPASS="$SSH_PASSWORD"
-          sshpass -e rsync -avz --delete \
-            -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 21098" \
-            ./dist/ \
-            ironobty@192.64.117.206:~/inkcopilot.com/
-          
-          # Debug info if rsync fails
-          if [ $? -ne 0 ]; then
-            echo "Rsync failed. Trying to debug the connection..."
-            sshpass -e ssh -o StrictHostKeyChecking=no -p 21098 ironobty@192.64.117.206 echo "SSH connection successful"
-          fi
+        run: sshpass -p "$SSH_PASSWORD" rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no -p 21098" ./dist/ ironobty@192.64.117.206:~/inkcopilot.com/
             
       - name: Verify deployment 🔍
         env:
           SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
-        run: |
-          export SSHPASS="$SSH_PASSWORD"
-          sshpass -e ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 21098 ironobty@192.64.117.206 'cd ~/inkcopilot.com && ls -la && echo "Frontend deployment completed successfully!"'
+        run: sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no -p 21098 ironobty@192.64.117.206 'cd ~/inkcopilot.com && ls -la && echo "Frontend deployment completed successfully!"'

@@ -18,16 +18,15 @@ export function AppSidebar() {
   return (
     <Sidebar className="w-[240px]">
       <SidebarHeader className="px-4 py-4">
-        <Button variant="ghost" size="sm" className="w-full justify-start">
+        <Button variant="ghost" size="sm" className="w-full justify-start p-1">
           <img
             src="/logo.svg"
             alt="InkCopilot"
-            className="h-6 w-6"
+            className="h-12 w-auto"
           />
-          <span className="ml-2 text-lg font-medium">InkCopilot</span>
         </Button>
       </SidebarHeader>
-      <SidebarContent className="px-3">
+      <SidebarContent className="px-3 py-4">
         <SidebarMenu className="space-y-1">
           <SidebarMenuItem>
             <SidebarMenuButton

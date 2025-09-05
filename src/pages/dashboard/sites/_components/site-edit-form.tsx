@@ -4,45 +4,63 @@ import * as z from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useCreateSite } from "@/hooks/use-sites";
+import { useUpdateSite, Site } from "@/hooks/use-sites";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
+import { useEffect } from "react";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
   url: z.string().url("Must be a valid URL"),
   username: z.string().min(1, "Username is required"),
-  password: z.string().min(1, "Password is required"),
+  password: z.string().optional(),
 });
 
 type FormData = z.infer<typeof formSchema>;
 
-export function SiteForm({ onSuccess }: { onSuccess: () => void }) {
+export function SiteEditForm({ site, onSuccess }: { site: Site; onSuccess: () => void }) {
   const { toast } = useToast();
-  const createSite = useCreateSite();
+  const updateSite = useUpdateSite();
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      url: "",
-      username: "",
+      name: site.name,
+      url: site.url,
+      username: site.username,
       password: "",
     },
   });
 
+  useEffect(() => {
+    if (site) {
+      form.reset({
+        name: site.name,
+        url: site.url,
+        username: site.username,
+        password: "",
+      });
+    }
+  }, [site, form]);
+
   const onSubmit = async (data: FormData) => {
     try {
-      await createSite.mutateAsync(data);
+      // Remove password from the data if it's empty
+      const updateData: Partial<Site> = { ...data };
+      if (!updateData.password) {
+        delete updateData.password;
+      }
+
+      await updateSite.mutateAsync({ id: site._id, data: updateData });
       toast({
         title: "Success",
-        description: "Site added successfully",
+        description: "Site updated successfully",
       });
       onSuccess();
     } catch (error: any) {
       toast({
         title: "Error",
-        description: error.response?.data?.error || "Failed to add site",
+        description: error.response?.data?.error || "Failed to update site",
         variant: "destructive",
       });
     }
@@ -50,7 +68,7 @@ export function SiteForm({ onSuccess }: { onSuccess: () => void }) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4" autoComplete="off">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
           name="name"
@@ -58,7 +76,7 @@ export function SiteForm({ onSuccess }: { onSuccess: () => void }) {
             <FormItem>
               <FormLabel>Site Name</FormLabel>
               <FormControl>
-                <Input placeholder="My Website" autoComplete="off" {...field} />
+                <Input placeholder="My Website" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -72,12 +90,9 @@ export function SiteForm({ onSuccess }: { onSuccess: () => void }) {
             <FormItem>
               <FormLabel>URL</FormLabel>
               <FormControl>
-                <Input placeholder="https://example.com" autoComplete="off" {...field} />
+                <Input placeholder="https://example.com" {...field} />
               </FormControl>
               <FormMessage />
-              <p className="text-xs text-muted-foreground mt-1">
-                Example https://example.com/ 
-              </p>
             </FormItem>
           )}
         />
@@ -89,12 +104,9 @@ export function SiteForm({ onSuccess }: { onSuccess: () => void }) {
             <FormItem>
               <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input placeholder="username" autoComplete="off" {...field} />
+                <Input placeholder="admin" {...field} />
               </FormControl>
               <FormMessage />
-              <p className="text-xs text-muted-foreground mt-1">
-                Please use a username for WordPress sites, not an email.
-              </p>
             </FormItem>
           )}
         />
@@ -106,7 +118,7 @@ export function SiteForm({ onSuccess }: { onSuccess: () => void }) {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="••••••••" autoComplete="new-password" {...field} />
+                <Input type="password" placeholder="Leave blank to keep unchanged" {...field} />
               </FormControl>
               <FormMessage />
               <p className="text-xs text-muted-foreground mt-1">
@@ -124,14 +136,14 @@ export function SiteForm({ onSuccess }: { onSuccess: () => void }) {
           )}
         />
 
-        <Button type="submit" className="w-full" disabled={createSite.isPending}>
-          {createSite.isPending ? (
+        <Button type="submit" className="w-full" disabled={updateSite.isPending}>
+          {updateSite.isPending ? (
             <>
               <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-              Adding Site...
+              Updating Site...
             </>
           ) : (
-            "Add Site"
+            "Update Site"
           )}
         </Button>
       </form>

@@ -1,19 +1,22 @@
-import { Globe2, Plus, View } from "lucide-react";
+import { Globe2, Plus, View, Edit, Pencil } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { useSites } from "@/hooks/use-sites";
+import { useSites, useSite } from "@/hooks/use-sites";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useState } from "react";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { SiteForm } from "./_components/site-form";
 import { SiteDetail } from "./_components/site-detail";
+import { SiteEditForm } from "./_components/site-edit-form";
 import { useUser } from "@/hooks/use-user";
 
 export default function SitesPage() {
   const { data: sites, isLoading } = useSites();
   const [selectedSite, setSelectedSite] = useState<string | null>(null);
+  const [editingSite, setEditingSite] = useState<string | null>(null);
   const [showAddSite, setShowAddSite] = useState(false);
   const { user } = useUser();
+  const { data: siteToEdit } = useSite(editingSite || "");
 
 
 
@@ -73,14 +76,24 @@ export default function SitesPage() {
                       </a>
                     </TableCell>
                     <TableCell>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => setSelectedSite(site._id)}
-                      >
-                        <View className="w-4 h-4 mr-2" />
-                        View
-                      </Button>
+                      <div className="flex items-center space-x-1">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => setSelectedSite(site._id)}
+                        >
+                          <View className="w-4 h-4 mr-1" />
+                          View
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => setEditingSite(site._id)}
+                        >
+                          <Pencil className="w-4 h-4 mr-1" />
+                          Edit
+                        </Button>
+                      </div>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -107,6 +120,28 @@ export default function SitesPage() {
       <Sheet open={!!selectedSite} onOpenChange={() => setSelectedSite(null)}>
         <SheetContent>
           {selectedSite && <SiteDetail id={selectedSite} />}
+        </SheetContent>
+      </Sheet>
+
+      <Sheet open={!!editingSite} onOpenChange={() => setEditingSite(null)}>
+        <SheetContent>
+          <SheetHeader>
+            <SheetTitle>Edit Site</SheetTitle>
+            <SheetDescription>
+              Update your website information.
+            </SheetDescription>
+          </SheetHeader>
+          <div className="mt-6">
+            {siteToEdit && (
+              <SiteEditForm 
+                site={siteToEdit} 
+                onSuccess={() => {
+                  setEditingSite(null);
+                  window.location.reload();
+                }} 
+              />
+            )}
+          </div>
         </SheetContent>
       </Sheet>
     </div>

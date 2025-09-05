@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProtectedRoute from "@/components/protected-route";
+import AuthGuard from "@/components/auth-guard";
 import Index from "./pages/Index";
 import Pricing from "./pages/Pricing";
 import About from "./pages/About";
@@ -12,6 +13,7 @@ import { AppLayout } from "./components/app-layout";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
 import ForgotPassword from "./pages/Auth/ForgotPassword";
+import ResetPassword from "./pages/Auth/ResetPassword";
 import Privacy from "./pages/Legal/Privacy";
 import Terms from "./pages/Legal/Terms";
 import CookiePolicy from "./pages/Legal/CookiePolicy";
@@ -38,9 +40,10 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/about" element={<About />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/login" element={<AuthGuard><Login /></AuthGuard>} />
+            <Route path="/register" element={<AuthGuard><Register /></AuthGuard>} />
+            <Route path="/forgot-password" element={<AuthGuard><ForgotPassword /></AuthGuard>} />
+            <Route path="/reset-password" element={<AuthGuard><ResetPassword /></AuthGuard>} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/cookie-policy" element={<CookiePolicy />} />

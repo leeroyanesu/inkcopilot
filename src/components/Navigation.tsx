@@ -32,13 +32,14 @@ const Navigation = () => {
           {/* Logo */}
           <Link 
             to="/" 
-            className="flex items-center gap-1.5 sm:gap-2 font-bold text-lg sm:text-xl"
+            className="flex items-center gap-1.5 sm:gap-2"
             onClick={() => setIsMenuOpen(false)}
           >
-            <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
-              <Zap className="h-4 w-4 sm:h-5 sm:w-5 text-primary-foreground" />
-            </div>
-            <span className="text-gradient">InkCopilot</span>
+            <img 
+              src="/logo.svg" 
+              alt="InkCopilot Logo" 
+              className="h-8 sm:h-10 w-auto" 
+            />
           </Link>
 
           {/* Desktop Navigation */}

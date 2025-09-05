@@ -50,6 +50,24 @@ import { InvoiceViewer } from "@/components/invoice-viewer"
 
 const plans = [
   {
+    name: "Free",
+    price: "$0",
+    period: "/forever",
+    description: "Try before you subscribe",
+    features: [
+      "2 posts trial limit",
+      "1 publishing job per day",
+      "No custom posts",
+      "No automation jobs",
+      "Basic AI model",
+      "No integrations",
+      "Community support"
+    ],
+    cta: "Current Plan",
+    popular: false,
+    disabled: true
+  },
+  {
     name: "Starter",
     price: "$5",
     period: "/month",
@@ -88,14 +106,14 @@ const plans = [
 ]
 
 const comparisonFeatures = [
-  { feature: "Posts per month", starter: "30", pro: "60", custom: "60+" },
-  { feature: "Publishing jobs per day", starter: "5", pro: "20", custom: "20+" },
-  { feature: "Custom posts per day", starter: "3", pro: "15", custom: "15+" },
-  { feature: "Active automation jobs", starter: "2", pro: "10", custom: "10+" },
-  { feature: "AI Models", starter: "GPT-4", pro: "GPT-4 + Claude", custom: "All Models" },
-  { feature: "News Integration", starter: "❌", pro: "✅", custom: "✅" },
-  { feature: "WordPress Integration", starter: "Basic", pro: "Advanced", custom: "Premium" },
-  { feature: "Support", starter: "Email", pro: "Priority + Chat", custom: "Dedicated Support" }
+  { feature: "Posts per month", free: "2 (trial)", starter: "30", pro: "60", custom: "60+" },
+  { feature: "Publishing jobs per day", free: "1", starter: "5", pro: "20", custom: "20+" },
+  { feature: "Custom posts per day", free: "0", starter: "3", pro: "15", custom: "15+" },
+  { feature: "Active automation jobs", free: "0", starter: "2", pro: "10", custom: "10+" },
+  { feature: "AI Models", free: "Basic", starter: "GPT-4", pro: "GPT-4 + Claude", custom: "All Models" },
+  { feature: "News Integration", free: "❌", starter: "❌", pro: "✅", custom: "✅" },
+  { feature: "WordPress Integration", free: "❌", starter: "Basic", pro: "Advanced", custom: "Premium" },
+  { feature: "Support", free: "Community", starter: "Email", pro: "Priority + Chat", custom: "Dedicated Support" }
 ]
 
 const updateCardSchema = z.object({
@@ -210,6 +228,7 @@ export default function BillingPage() {
     }
   })
 
+
   // Change plan mutation
   const changePlanMutation = useMutation({
     mutationFn: changePlan,
@@ -304,7 +323,7 @@ export default function BillingPage() {
                 variant="outline" 
                 className="bg-primary/5 text-primary border-primary/20"
               >
-                {billingData?.currentPlan?.name || 'Free'}
+                {billingData?.currentPlan?.plan || 'Free'}
               </Badge>
             </div>
           </CardHeader>
@@ -483,13 +502,13 @@ export default function BillingPage() {
                     className="w-full"
                     onClick={() => handlePlanChange(plan.name as 'Starter' | 'Pro')}
                     disabled={
-                      plan.name === billingData?.currentPlan?.name ||
+                      plan.name === billingData?.currentPlan?.plan ||
                       changePlanMutation.isPending
                     }
                   >
-                    {plan.name === billingData?.currentPlan?.name ? "Current Plan" : 
+                    {plan.name === billingData?.currentPlan?.plan ? "Current Plan" : 
                       changePlanMutation.isPending ? "Updating..." : plan.cta}
-                    {plan.name !== billingData?.currentPlan?.name && !changePlanMutation.isPending && 
+                    {plan.name !== billingData?.currentPlan?.plan && !changePlanMutation.isPending && 
                       <ArrowRight className="ml-2 h-4 w-4" />}
                   </Button>
                 </div>

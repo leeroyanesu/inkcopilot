@@ -2,7 +2,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 
 const api = axios.create({
-  baseURL: 'http://localhost:8080', // adjust this to match your backend URL
+  baseURL: 'https://inkcopilot-backend.vercel.app', // adjust this to match your backend URL
   headers: {
     'Content-Type': 'application/json',
   },
@@ -69,6 +69,10 @@ export const authApi = {
   },
   forgotPassword: async (email: string) => {
     const { data } = await api.post('/auth/forgot-password', { email });
+    return data;
+  },
+  resetPassword: async ({ email, code, password }: { email: string, code: string, password: string }) => {
+    const { data } = await api.post('/auth/reset-password', { email, code, password });
     return data;
   },
 };

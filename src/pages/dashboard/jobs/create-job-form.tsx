@@ -312,7 +312,6 @@ export function CreateJobForm({ onSuccess }: CreateJobFormProps) {
                   <SelectItem value="everyday">Every day (Multiple posts)</SelectItem>
                   <SelectItem value="every-12-hours">Every 12 hours</SelectItem>
                   <SelectItem value="once-week">Once a week</SelectItem>
-                  <SelectItem value="everyday-once">Every day (Once)</SelectItem>
                 </SelectContent>
               </Select>
               <FormDescription>Choose how often content should be generated</FormDescription>

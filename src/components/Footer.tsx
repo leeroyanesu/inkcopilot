@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Zap, Twitter, Github, Linkedin } from "lucide-react";
+import { Twitter, Github, Linkedin } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -44,11 +44,12 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* Brand Column */}
           <div className="lg:col-span-2 space-y-6">
-            <Link to="/" className="flex items-center gap-2 font-bold text-xl">
-              <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
-                <Zap className="h-5 w-5 text-primary-foreground" />
-              </div>
-              <span className="text-gradient">InkCopilot</span>
+            <Link to="/" className="flex items-center gap-2">
+              <img 
+                src="/logo.svg" 
+                alt="InkCopilot Logo" 
+                className="h-10 w-auto" 
+              />
             </Link>
             <p className="text-muted-foreground">
               Empowering creators with AI-driven content automation, making writing effortless and efficient.

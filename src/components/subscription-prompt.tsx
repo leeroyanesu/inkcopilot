@@ -45,6 +45,13 @@ export function SubscriptionPrompt({ isOpen, onClose }: SubscriptionPromptProps)
         
         <div className="p-6">
           <div className="space-y-4">
+            <div className="bg-amber-50 text-amber-800 rounded-lg p-4 border border-amber-200">
+              <p className="font-medium">Free Trial Limit Reached</p>
+              <p className="text-sm mt-1">
+                The Free plan allows only 2 posts as a trial. Upgrade to our Starter plan to continue creating content.
+              </p>
+            </div>
+            
             <p className="text-center">
               Upgrade your plan to unlock our powerful Automated Writing service and start generating high-quality, 
               SEO-optimized content instantly.
@@ -55,7 +62,7 @@ export function SubscriptionPrompt({ isOpen, onClose }: SubscriptionPromptProps)
                 <div className="h-5 w-5 rounded-full bg-primary/20 flex items-center justify-center">
                   <span className="text-xs font-medium">✓</span>
                 </div>
-                <p className="text-sm">Automated content generation</p>
+                <p className="text-sm">30 posts per month (Starter plan)</p>
               </div>
               <div className="flex items-center gap-2">
                 <div className="h-5 w-5 rounded-full bg-primary/20 flex items-center justify-center">
@@ -85,7 +92,7 @@ export function SubscriptionPrompt({ isOpen, onClose }: SubscriptionPromptProps)
             onClick={handleChoosePlan}
           >
             <Rocket className="w-4 h-4 mr-2" />
-            Choose Plan
+            Upgrade to Starter Plan ($5/month)
           </Button>
         </DialogFooter>
       </DialogContent>

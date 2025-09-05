@@ -1,0 +1,19 @@
+<svg width="200" height="50" viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
+  <!-- InkCopilot Logo - SVG version -->
+  <!-- Main text using brand orange color from the site -->
+  <defs>
+    <linearGradient id="brandGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F97316" /> <!-- Primary brand color (orange) -->
+      <stop offset="100%" stop-color="#C2410C" /> <!-- Primary dark (darker orange) -->
+    </linearGradient>
+  </defs>
+  
+  <!-- Stylized pen/quill icon -->
+  <path d="M30 10c-2.5 0-4.5 2-4.5 4.5 0 0.5 0.1 1 0.3 1.5l-15.3 15.3c-0.4 0.4-0.7 0.9-0.8 1.5l-1.5 7.5c-0.1 0.4 0 0.8 0.3 1.1 0.2 0.2 0.5 0.3 0.8 0.3 0.1 0 0.2 0 0.3 0l7.5-1.5c0.6-0.1 1.1-0.4 1.5-0.8l15.3-15.3c0.5 0.2 1 0.3 1.5 0.3 2.5 0 4.5-2 4.5-4.5s-2-4.5-4.5-4.5zM17.8 36.8l-5 1 1-5 12.3-12.3 4 4-12.3 12.3z" fill="url(#brandGradient)"/>
+  
+  <!-- Company name -->
+  <text x="50" y="30" font-family="Arial, sans-serif" font-weight="bold" font-size="22" fill="url(#brandGradient)">InkCopilot</text>
+  
+  <!-- Tagline -->
+  <text x="50" y="42" font-family="Arial, sans-serif" font-size="10" fill="#999">AI-Powered Content Automation</text>
+</svg>

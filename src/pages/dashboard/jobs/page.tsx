@@ -23,8 +23,6 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { useSubscription } from "@/hooks/use-subscription"
 import { useNavigate } from "react-router-dom"
 import { useToast } from "@/hooks/use-toast"
-import { getSubscription } from "@/lib/api/profile"
-import { useMutation } from "@tanstack/react-query"
 
 export default function JobsPage() {
   const navigate = useNavigate();
@@ -32,17 +30,7 @@ export default function JobsPage() {
   const [page, setPage] = React.useState(1);
   const [isOpen, setIsOpen] = React.useState(false);
   const { data, isLoading, error } = useJobs();
-  const [subscriptionData, setSubscriptionData] = React.useState(null);
-
-   const { mutate: fetchSubscription } = useMutation({
-    mutationFn: getSubscription,
-    onSuccess: (data) => {
-      setSubscriptionData(data);
-    },
-  })
-  React.useEffect(() => {
-    fetchSubscription();
-  }, [])
+  const { data: subscriptionData, isLoading: isSubscriptionLoading } = useSubscription();
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -55,7 +43,14 @@ export default function JobsPage() {
                 Manage your content generation jobs
               </p>
             </div>
-            {(!subscriptionData?.subscription || subscriptionData.subscription.name === 'free') ? (
+            {isSubscriptionLoading ? (
+              <Button disabled>
+                <Plus className="mr-2 h-4 w-4" />
+                Create Job
+              </Button>
+            ) : (!subscriptionData?.data || 
+               (subscriptionData.data.subscription.plan && subscriptionData.data.subscription.plan.toLowerCase() === 'free') ||
+               (subscriptionData.data.subscription.plan && subscriptionData.data.subscription.plan.toLowerCase() === 'free')) ? (
               <Button
                 onClick={() => {
                   toast({

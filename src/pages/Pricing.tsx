@@ -6,6 +6,24 @@ import { useNavigate } from "react-router-dom";
 
 const plans = [
   {
+    name: "Free",
+    price: "$0",
+    period: "/forever",
+    description: "Try before you subscribe",
+    features: [
+      "2 posts trial limit",
+      "1 publishing job per day",
+      "No custom posts",
+      "No automation jobs",
+      "Basic AI model",
+      "No integrations",
+      "Community support"
+    ],
+    cta: "Current Plan",
+    popular: false,
+    disabled: true
+  },
+  {
     name: "Starter",
     price: "$5",
     period: "/month",
@@ -44,14 +62,15 @@ const plans = [
 ];
 
 const comparisonFeatures = [
-  { feature: "Posts per month", starter: "30", pro: "60", custom: "60+" },
-  { feature: "Publishing jobs per day", starter: "5", pro: "20", custom: "20+" },
-  { feature: "Custom posts per day", starter: "3", pro: "15", custom: "15+" },
-  { feature: "Active automation jobs", starter: "2", pro: "10", custom: "10+" },
-  { feature: "AI Models", starter: "GPT-4", pro: "GPT-4 + Claude", custom: "All Models" },
-  { feature: "News Integration", starter: "❌", pro: "✅", custom: "✅" },
-  { feature: "WordPress Integration", starter: "Basic", pro: "Advanced", custom: "Premium" },
-  { feature: "Support", starter: "Email", pro: "Priority + Chat", custom: "Dedicated Support" }
+  { feature: "Monthly Price", free: "$0", starter: "$5", pro: "$8.99", custom: "Custom" },
+  { feature: "Posts per month", free: "2 (trial)", starter: "30", pro: "60", custom: "60+" },
+  { feature: "Publishing jobs per day", free: "1", starter: "5", pro: "20", custom: "20+" },
+  { feature: "Custom posts per day", free: "0", starter: "3", pro: "15", custom: "15+" },
+  { feature: "Active automation jobs", free: "0", starter: "2", pro: "10", custom: "10+" },
+  { feature: "AI Models", free: "Basic", starter: "GPT-4", pro: "GPT-4 + Claude", custom: "All Models" },
+  { feature: "News Integration", free: "❌", starter: "❌", pro: "✅", custom: "✅" },
+  { feature: "WordPress Integration", free: "❌", starter: "Basic", pro: "Advanced", custom: "Premium" },
+  { feature: "Support", free: "Community", starter: "Email", pro: "Priority + Chat", custom: "Dedicated Support" }
 ];
 
 const Pricing = () => {
@@ -132,6 +151,7 @@ const Pricing = () => {
                 variant={plan.popular ? "hero" : "outline"} 
                 size="lg" 
                 className="w-full text-base sm:text-lg h-10 sm:h-12"
+                disabled={plan.disabled}
                 onClick={() => navigate('/checkout', {
                   state: { 
                     plan: {
@@ -143,7 +163,7 @@ const Pricing = () => {
                 })}
               >
                 {plan.cta}
-                <ArrowRight className="ml-2 h-5 w-5" />
+                {!plan.disabled && <ArrowRight className="ml-2 h-5 w-5" />}
               </Button>
             </div>
           ))}
@@ -247,6 +267,7 @@ const Pricing = () => {
                 <thead>
                   <tr className="border-b border-border">
                     <th className="text-left p-4 sm:p-6 font-semibold text-sm sm:text-base">Feature</th>
+                    <th className="text-center p-4 sm:p-6 font-semibold text-sm sm:text-base">Free</th>
                     <th className="text-center p-4 sm:p-6 font-semibold text-sm sm:text-base">Starter</th>
                     <th className="text-center p-4 sm:p-6 font-semibold text-sm sm:text-base text-primary">Pro</th>
                     <th className="text-center p-4 sm:p-6 font-semibold text-sm sm:text-base text-primary">Custom</th>
@@ -256,6 +277,7 @@ const Pricing = () => {
                   {comparisonFeatures.map((row, index) => (
                     <tr key={index} className="border-b border-border last:border-b-0">
                       <td className="p-4 sm:p-6 font-medium text-sm sm:text-base">{row.feature}</td>
+                      <td className="p-4 sm:p-6 text-center text-sm sm:text-base text-muted-foreground">{row.free}</td>
                       <td className="p-4 sm:p-6 text-center text-sm sm:text-base text-muted-foreground">{row.starter}</td>
                       <td className="p-4 sm:p-6 text-center text-sm sm:text-base text-primary font-semibold">{row.pro}</td>
                       <td className="p-4 sm:p-6 text-center text-sm sm:text-base text-primary font-semibold">{row.custom}</td>

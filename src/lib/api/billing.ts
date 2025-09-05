@@ -1,7 +1,7 @@
 import api from "../api"
 
 export interface BillingPlan {
-  name: string
+  plan: string
   price: string
   interval: string
   nextBilling: string

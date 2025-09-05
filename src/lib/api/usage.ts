@@ -9,6 +9,10 @@ export interface UsageStats {
     date: string;
     count: number;
   }[];
+  subscription?: {
+    plan?: string;
+    name?: string;
+  };
 }
 
 export const UsageAPI = {

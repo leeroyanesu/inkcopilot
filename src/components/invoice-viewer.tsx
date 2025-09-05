@@ -19,6 +19,17 @@ interface InvoiceViewerProps {
 }
 
 export function InvoiceViewer({ transaction }: InvoiceViewerProps) {
+  const parseAmount = (amount: string) => {
+    // Handle different formats of amount strings
+    if (typeof amount !== 'string') {
+      return 0;
+    }
+    
+    // Remove any non-numeric characters except decimal point
+    const cleanedAmount = amount.replace(/[^0-9.]/g, '');
+    return parseFloat(cleanedAmount) || 0;
+  };
+
   const generateInvoiceData = () => ({
     invoiceNumber: transaction.id,
     date: transaction.date,
@@ -32,13 +43,13 @@ export function InvoiceViewer({ transaction }: InvoiceViewerProps) {
       {
         description: transaction.description,
         quantity: 1,
-        unitPrice: parseFloat(transaction.amount.replace('$', '')),
-        amount: parseFloat(transaction.amount.replace('$', ''))
+        unitPrice: parseAmount(transaction.amount),
+        amount: parseAmount(transaction.amount)
       }
     ],
-    subtotal: parseFloat(transaction.amount.replace('$', '')),
+    subtotal: parseAmount(transaction.amount),
     tax: 0,
-    total: parseFloat(transaction.amount.replace('$', '')),
+    total: parseAmount(transaction.amount),
     status: transaction.status
   })
 

@@ -14,12 +14,18 @@ const ForgotPassword = () => {
 
   const forgotPasswordMutation = useMutation({
     mutationFn: authApi.forgotPassword,
-    onSuccess: () => {
+    onSuccess: (data) => {
       toast({
         title: "Success",
         description: "Password reset instructions have been sent to your email.",
         variant: "default",
       });
+      
+      // If there's a redirectTo in the response, navigate to that URL with email as query param
+      if (data.redirectTo) {
+        // Ensure we're using the correct path with the email parameter
+        window.location.href = `${data.redirectTo}?email=${encodeURIComponent(email)}`;
+      }
     },
     onError: (error: any) => {
       toast({

@@ -10,14 +10,6 @@ import {
 import { UsageAPI } from "@/lib/api/usage"
 import { Progress } from "@/components/ui/progress"
 import { Button } from "@/components/ui/button"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
 import { Sparkles, CreditCard } from "lucide-react"
 
 const QUERY_KEY = {
@@ -53,9 +45,9 @@ export default function UsagePage() {
               <Progress value={usageStats?.usagePercentage ?? 0} />
               <div className="flex items-center justify-between text-sm">
                 <span className="text-muted-foreground">
-                  {usageStats?.usedPosts.toLocaleString()} / {usageStats?.totalPosts.toLocaleString()} posts
+                  {(usageStats?.usedPosts || 0).toLocaleString()} / {(usageStats?.totalPosts || 0).toLocaleString()} posts
                 </span>
-                <span className="font-medium">{usageStats?.usagePercentage.toFixed(1)}%</span>
+                <span className="font-medium">{(usageStats?.usagePercentage || 0).toFixed(1)}%</span>
               </div>
             </div>
           </CardContent>
@@ -65,7 +57,7 @@ export default function UsagePage() {
         <Card>
           <CardHeader>
             <CardTitle>Posts Created</CardTitle>
-            <CardDescription>Monthly post creation limit</CardDescription>
+            <CardDescription>{(usageStats?.subscription?.plan === 'Free' || usageStats?.subscription?.name === 'Free') ? 'Free trial limit' : 'Monthly post creation limit'}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -78,6 +70,11 @@ export default function UsagePage() {
                   <div className="mb-4">
                     <h3 className="text-lg font-medium">Remaining Posts</h3>
                     <p className="text-3xl font-bold">{usageStats?.remainingPosts}</p>
+                    {(usageStats?.subscription?.plan === 'Free' || usageStats?.subscription?.name === 'Free') && (
+                      <p className="text-sm text-amber-600 mt-1">
+                        Free plan limited to 2 posts. Upgrade for more content.
+                      </p>
+                    )}
                   </div>
                   <div className="space-y-2">
                     <h4 className="text-sm font-medium">Usage History (Last 30 Days)</h4>
@@ -106,13 +103,25 @@ export default function UsagePage() {
       <Card>
         <CardHeader>
           <CardTitle>Usage Statistics</CardTitle>
-          <CardDescription>Upgrade your plan for more resources</CardDescription>
+          <CardDescription>
+            {(usageStats?.subscription?.plan === 'Free' || usageStats?.subscription?.name === 'Free')
+              ? 'Upgrade from Free trial (2 posts) to the Starter plan for more content' 
+              : 'Upgrade your plan for more resources'}
+          </CardDescription>
         </CardHeader>
         <CardContent>
-          <Button onClick={()=>window.location.replace('/dashboard/billing')}>
-                <Sparkles className="mr-2 h-4 w-4" />
-                Buy More Credits
-              </Button>
+          <div className="space-y-4">
+            {(usageStats?.subscription?.plan === 'Free' || usageStats?.subscription?.name === 'Free') && (
+              <div className="p-4 bg-amber-50 text-amber-800 rounded-lg border border-amber-200">
+                <p className="font-medium">Free Trial Limit</p>
+                <p className="text-sm mt-1">You've used {usageStats?.usedPosts || 0} of 2 allowed posts in the Free plan. Upgrade to continue creating content.</p>
+              </div>
+            )}
+            <Button onClick={()=>window.location.replace('/dashboard/billing')}>
+              <Sparkles className="mr-2 h-4 w-4" />
+              {(usageStats?.subscription?.plan === 'Free' || usageStats?.subscription?.name === 'Free') ? 'Upgrade to Starter Plan' : 'Buy More Credits'}
+            </Button>
+          </div>
         </CardContent>
       </Card>
     </div>

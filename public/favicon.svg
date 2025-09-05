@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <!-- InkCopilot Favicon -->
+  <defs>
+    <linearGradient id="brandGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F97316" /> <!-- Primary brand color (orange) -->
+      <stop offset="100%" stop-color="#C2410C" /> <!-- Primary dark (darker orange) -->
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="32" height="32" rx="6" fill="#1A1C25" />
+  
+  <!-- Stylized pen/quill icon - centered and simplified for favicon -->
+  <path d="M22 6c-1.5 0-2.7 1.2-2.7 2.7 0 0.3 0.1 0.6 0.2 0.9L9.3 19.8c-0.2 0.2-0.4 0.5-0.5 0.9l-0.9 4.5c-0.1 0.2 0 0.5 0.2 0.7 0.1 0.1 0.3 0.2 0.5 0.2 0.1 0 0.1 0 0.2 0l4.5-0.9c0.3-0.1 0.6-0.2 0.9-0.5l10.2-10.2c0.3 0.1 0.6 0.2 0.9 0.2 1.5 0 2.7-1.2 2.7-2.7S23.5 6 22 6zM14.7 22.1l-3 0.6 0.6-3 8.2-8.2 2.4 2.4-8.2 8.2z" fill="url(#brandGradient)"/>
+</svg>
